@@ -11,6 +11,9 @@ import FourOhFour from 'containers/404'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import ContentfulFigure from 'components/ContentfulFigure'
 import { makeStyles } from '@material-ui/styles'
+import PictureGroup from 'components/PictureGroup'
+// import ContentBlock from 'components/ContentBlock'
+// import PictureLinkGroup from 'components/PictureLinkGroup'
 
 const isRelativeLink = link => /^\//.test(link)
 
@@ -62,11 +65,25 @@ const BlockquoteRenderer = (node, children) => {
 
 const EmbeddedAssetRenderer = node => <ContentfulFigure image={node.data.target} />
 
+const embeddedEntryRenderers = {
+  // contentBlock: ContentBlock,
+  // pictureLinkGroup: PictureLinkGroup,
+  pictureGroup: PictureGroup
+}
+
+const EmbeddedEntryRenderer = node => {
+  const contentType = node.data.target.sys.contentType.sys.id
+  const Renderer = embeddedEntryRenderers[contentType]
+  if (Renderer) return <Renderer {...node.data.target} />
+  return <div><strong>Unknown content type {contentType}</strong></div>
+}
+
 export const rendererConfig = {
   renderNode: {
     [BLOCKS.PARAGRAPH]: ParagraphRenderer,
     [BLOCKS.QUOTE]: BlockquoteRenderer,
     [INLINES.HYPERLINK]: HyperlinkRenderer,
+    [BLOCKS.EMBEDDED_ENTRY]: EmbeddedEntryRenderer,
     [BLOCKS.EMBEDDED_ASSET]: EmbeddedAssetRenderer
   }
 }

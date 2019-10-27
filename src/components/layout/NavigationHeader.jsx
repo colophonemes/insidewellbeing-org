@@ -6,6 +6,7 @@ import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import HomeIcon from '@material-ui/icons/Home'
 import StarIcon from '@material-ui/icons/Star'
+import FaceIcon from '@material-ui/icons/Face'
 import { withStyles } from '@material-ui/styles'
 import { NavLink, Link as RouterLink } from 'react-router-dom'
 import { ReactComponent as LogoType } from 'images/LogoType.svg'
@@ -32,7 +33,7 @@ const menuItems = [
   {
     href: '/about',
     text: 'About',
-    icon: StarIcon
+    icon: FaceIcon
   }
 ]
 

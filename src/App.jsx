@@ -1,5 +1,7 @@
 import React from 'react'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { Router } from 'react-router-dom'
+import { createBrowserHistory } from 'history'
+import { wrapHistory } from 'oaf-react-router'
 import { ContentfulClient, ContentfulProvider } from 'react-contentful'
 import { IntlProvider } from 'react-intl'
 import { ThemeProvider } from '@material-ui/styles'
@@ -7,6 +9,7 @@ import { createMuiTheme } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import teal from '@material-ui/core/colors/teal'
 import blue from '@material-ui/core/colors/blue'
+import setupMediaQueries from 'utilities/contentfulImageMediaQueries'
 
 import Content from 'components/layout/Content'
 
@@ -30,7 +33,10 @@ const theme = createMuiTheme({
   },
   palette: {
     primary: teal,
-    secondary: blue
+    secondary: blue,
+    background: {
+      default: '#ffffff'
+    }
   },
   status: {
     danger: 'orange'
@@ -42,6 +48,11 @@ const theme = createMuiTheme({
     }
   }
 })
+
+setupMediaQueries()
+
+const history = createBrowserHistory()
+wrapHistory(history)
 
 const {
   REACT_APP_CONTENTFUL_SPACE,
@@ -56,17 +67,16 @@ const contentfulClient = new ContentfulClient({
 const LOCALE = 'en-GB'
 
 const App = () => <div className='App'>
-  <CssBaseline>
-    <ThemeProvider theme={theme}>
-      <IntlProvider locale={LOCALE}>
-        <ContentfulProvider client={contentfulClient} locale={LOCALE}>
-          <Router>
-            <Content />
-          </Router>
-        </ContentfulProvider>
-      </IntlProvider>
-    </ThemeProvider>
-  </CssBaseline>
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <IntlProvider locale={LOCALE}>
+      <ContentfulProvider client={contentfulClient} locale={LOCALE}>
+        <Router history={history}>
+          <Content />
+        </Router>
+      </ContentfulProvider>
+    </IntlProvider>
+  </ThemeProvider>
 </div>
 
 export default App
