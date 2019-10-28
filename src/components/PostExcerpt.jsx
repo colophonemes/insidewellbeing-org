@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import Typography from '@material-ui/core/Typography'
 import { withRouter } from 'react-router-dom'
+import Link from 'components/Link'
 import { rendererConfig } from 'utilities/contentful'
 import Box from '@material-ui/core/Box'
 import Card from '@material-ui/core/Card'
@@ -12,6 +13,9 @@ import CardContent from '@material-ui/core/CardContent'
 import { withStyles } from '@material-ui/styles'
 
 const styles = theme => ({
+  card: {
+    position: 'relative'
+  },
   content: {
     height: 180
   },
@@ -20,32 +24,27 @@ const styles = theme => ({
     backgroundColor: theme.palette.primary[200],
     width: '100%',
     backgroundSize: 'cover'
+  },
+  readMoreLink: {
+    zIndex: 110,
+    position: 'relative',
+    marginBottom: theme.spacing(1)
+  },
+  gradientOverlay: {
+    position: 'absolute',
+    bottom: 0,
+    height: 120,
+    width: '100%',
+    zIndex: 100,
+    background: 'linear-gradient(#FFF0, #FFF 75%)'
   }
 })
 
 const blogLink = slug => `/blog/${slug}`
 
-const screenXs = '360px';
-const screenSm = '600px';
-const screenMd = '960px';
-const screenLg = '1280px';
-const screenXl = '1920px';
-
-const media = {
-  xs: `(min-width: ${screenXs})`,
-  sm: `(min-width: ${screenSm})`,
-  md: `(min-width: ${screenMd})`,
-  lg: `(min-width: ${screenLg})`,
-  xl: `(min-width: ${screenXl})`,
-  dpr2: '(min-resolution: 144dpi)', // 1.5x devices and up get 2x images
-  dpr3: '(min-resolution: 240dpi)', // 2.5x devices and up get 3x images
-  portrait: '(orientation: portrait)',
-  landscape: '(orientation: landscape)',
-};
-
 const imageSizes = [
   {
-    mediaQuery: media.xs,
+    mediaQuery: 'xs',
     params: {
       w: 400,
       h: 240,
@@ -54,7 +53,7 @@ const imageSizes = [
     }
   },
   {
-    mediaQuery: media.sm,
+    mediaQuery: 'sm',
     params: {
       w: 400,
       h: 240,
@@ -63,14 +62,14 @@ const imageSizes = [
     }
   },
   {
-    mediaQuery: media.lg,
+    mediaQuery: 'lg',
     params: {
       w: 800,
       h: 280,
       fit: 'fill',
       q: 70
     }
-  },
+  }
 ]
 
 const PostExcerpt = ({ title, body, slug, excerpt, featuredImage, classes, history }) => {
@@ -87,6 +86,12 @@ const PostExcerpt = ({ title, body, slug, excerpt, featuredImage, classes, histo
           </Typography>
           {documentToReactComponents(excerpt, rendererConfig)}
         </CardContent>
+        <Typography align='center' className={classes.readMoreLink}>
+          <Link to={blogLink(slug)}>
+            Read more ...
+          </Link>
+        </Typography>
+        <div className={classes.gradientOverlay} />
       </CardActionArea>
     </Card>
   </article>

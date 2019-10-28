@@ -9,7 +9,6 @@ import { withStyles } from '@material-ui/styles'
 // import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
 import PostsGrid from 'components/PostsGrid'
-import { ButtonLink } from 'components/Link'
 
 const HomeContent = ({ fields: { body } }) => <React.Fragment>
   {documentToReactComponents(body, rendererConfig)}
@@ -65,14 +64,7 @@ const Home = ({ classes }) => <React.Fragment>
   >
     <Divider />
     <Grid item xs={12}>
-      <PostsGrid limit={6} grid />
-    </Grid>
-    <Grid item xs={12}>
-      <Grid container justify='center'>
-        <Grid item xs={12} sm={6}>
-          <ButtonLink fullWidth variant='outlined' color='primary' to='/blog'>More Posts</ButtonLink>
-        </Grid>
-      </Grid>
+      <PostsGrid limit={6} grid morePosts />
     </Grid>
   </Grid>
 </React.Fragment>
