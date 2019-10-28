@@ -4,9 +4,11 @@ import { ContentfulContentQuery, ContentfulRenderer } from 'utilities/contentful
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import ContentfulFigure from 'components/ContentfulFigure'
+import Meta from 'components/layout/Meta'
 
 const AboutContent = ({ fields: { title, body, featuredImage } }) => {
   return <div>
+    <Meta title={title} description={body} ogImage={featuredImage} />
     <Typography variant='h2' gutterBottom>{title}</Typography>
     <Grid container spacing={3}>
       <Grid item xs={12} md={6}>

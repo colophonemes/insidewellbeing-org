@@ -7,8 +7,10 @@ import PostContent from 'components/PostContent'
 import SpacedDivider from 'components/SpacedDivider'
 import Commento from 'components/Commento'
 import Typography from '@material-ui/core/Typography'
+import Meta from 'components/layout/Meta'
 
 const PostContentWrapper = ({ sys, fields }) => <React.Fragment>
+  <Meta title={fields.title} description={fields.body} ogImage={fields.featuredImage} />
   <Grid container justify='center' spacing={3}>
     <Grid item xs={12} md={8}>
       <PostContent key={sys.id} {...{ sys, fields }} />

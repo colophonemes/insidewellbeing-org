@@ -7,6 +7,7 @@ import { Link as RouterLink } from 'react-router-dom'
 import { ContentfulRenderer } from 'utilities/contentful'
 import { makeStyles } from '@material-ui/styles'
 import FormattedDate from 'components/FormattedDate'
+import Meta from 'components/layout/Meta'
 
 const Byline = ({ authors }) => <span>
   by{' '}

@@ -9,13 +9,16 @@ import { withStyles } from '@material-ui/styles'
 // import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
 import PostsGrid from 'components/PostsGrid'
+import Meta from 'components/layout/Meta'
 
 const HomeContent = ({ fields: { body } }) => <React.Fragment>
+  <Meta description={body} />
   {documentToReactComponents(body, rendererConfig)}
 </React.Fragment>
 
 HomeContent.propTypes = {
   fields: PropTypes.shape({
+    title: PropTypes.object.isRequired,
     body: PropTypes.object.isRequired
   }).isRequired
 }
@@ -44,7 +47,7 @@ const Home = ({ classes }) => <React.Fragment>
     <Grid item xs={12} className={classes.logoPlusLogoTypeContainer}>
       <LogoPlusLogoType className={classes.logoPlusLogoType} />
     </Grid>
-    </Grid>
+  </Grid>
   <Grid container justify='center' className={classes.homeContentWrapper}>
     <Grid item xs={12} sm={8} md={6}>
       <ContentfulContentQuery
